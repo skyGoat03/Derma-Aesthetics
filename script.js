@@ -20,6 +20,66 @@ if (navToggle && nav) {
   });
 }
 
+function clearProductImage(showcase) {
+  if (!showcase) {
+    return;
+  }
+
+  const imageFloat = showcase.querySelector(".product-image-float");
+  const imageEl = imageFloat?.querySelector("img");
+
+  showcase.classList.remove("has-image");
+
+  if (!imageFloat || !imageEl) {
+    return;
+  }
+
+  imageFloat.classList.remove("is-visible");
+  imageFloat.setAttribute("aria-hidden", "true");
+  imageEl.onload = null;
+  imageEl.onerror = null;
+  imageEl.removeAttribute("src");
+  imageEl.alt = "";
+}
+
+function hideProductShowcase(showcase) {
+  if (!showcase) {
+    return;
+  }
+
+  showcase.classList.remove("has-active");
+  clearProductImage(showcase);
+}
+
+function showProductImage(card, showcase) {
+  if (!showcase) {
+    return;
+  }
+
+  const imageFloat = showcase.querySelector(".product-image-float");
+  const imageEl = imageFloat?.querySelector("img");
+  const imageSrc = card.dataset.productImage;
+
+  clearProductImage(showcase);
+
+  if (!imageSrc || !imageFloat || !imageEl) {
+    return;
+  }
+
+  const title = card.querySelector("h3")?.textContent.trim() || "Product";
+
+  imageEl.alt = title;
+  imageEl.onload = () => {
+    showcase.classList.add("has-image");
+    imageFloat.classList.add("is-visible");
+    imageFloat.setAttribute("aria-hidden", "false");
+  };
+  imageEl.onerror = () => {
+    clearProductImage(showcase);
+  };
+  imageEl.src = imageSrc;
+}
+
 function collapseCard(card) {
   const button = card.querySelector(".expand-btn");
   const details = card.querySelector(".product-details");
@@ -35,7 +95,29 @@ function collapseCard(card) {
   details.style.maxHeight = "0px";
 }
 
+function openCard(card, grid, showcase) {
+  const button = card.querySelector(".expand-btn");
+  const details = card.querySelector(".product-details");
+
+  if (!button || !details) {
+    return;
+  }
+
+  card.classList.add("is-open");
+  button.setAttribute("aria-expanded", "true");
+  details.setAttribute("aria-hidden", "false");
+  button.childNodes[0].textContent = "Less Info ";
+  details.style.maxHeight = `${details.scrollHeight}px`;
+  grid.classList.add("has-active");
+
+  if (showcase) {
+    showcase.classList.add("has-active");
+    showProductImage(card, showcase);
+  }
+}
+
 function setupExpandableGrid(grid) {
+  const showcase = grid.closest(".product-showcase");
   const expandableCards = grid.querySelectorAll(".product-card.expandable");
 
   expandableCards.forEach((card) => {
@@ -56,20 +138,64 @@ function setupExpandableGrid(grid) {
       });
 
       if (isOpen) {
-        card.classList.add("is-open");
-        button.setAttribute("aria-expanded", "true");
-        details.setAttribute("aria-hidden", "false");
-        button.childNodes[0].textContent = "Less Info ";
-        details.style.maxHeight = `${details.scrollHeight}px`;
-        grid.classList.add("has-active");
+        openCard(card, grid, showcase);
       } else {
         collapseCard(card);
         grid.classList.remove("has-active");
+        hideProductShowcase(showcase);
       }
     });
   });
+
+  return expandableCards;
 }
 
+const productGrids = [];
+
 document.querySelectorAll(".product-grid").forEach((grid) => {
-  setupExpandableGrid(grid);
+  productGrids.push({
+    grid,
+    cards: setupExpandableGrid(grid),
+  });
 });
+
+function openProductFromHash() {
+  const hash = window.location.hash.replace("#", "");
+
+  if (!hash) {
+    return;
+  }
+
+  const targetCard = document.getElementById(hash);
+
+  if (!targetCard || !targetCard.classList.contains("product-card")) {
+    return;
+  }
+
+  const gridEntry = productGrids.find(({ grid }) => grid.contains(targetCard));
+
+  if (!gridEntry) {
+    return;
+  }
+
+  const { grid, cards } = gridEntry;
+  const showcase = grid.closest(".product-showcase");
+
+  cards.forEach((card) => {
+    if (card !== targetCard) {
+      collapseCard(card);
+    }
+  });
+
+  grid.querySelectorAll(".product-card.expandable").forEach((card) => {
+    if (card !== targetCard) {
+      collapseCard(card);
+    }
+  });
+
+  openCard(targetCard, grid, showcase);
+  targetCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+window.addEventListener("hashchange", openProductFromHash);
+openProductFromHash();
