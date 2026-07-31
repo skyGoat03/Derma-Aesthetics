@@ -26,12 +26,12 @@
 
   <main>
     <section class="hero">
-      <div class="container hero-grid">
-        <div>
+      <div class="container hero-layout">
+        <div class="hero-text">
           <p class="eyebrow">Dermatology-focused solutions</p>
           <h1>Advanced skin care and Aesthetic Dermatology products for healthier skin.</h1>
           <p class="hero-copy">
-            Derma Aesthetic is committed to deliver innovative advanced therapeutic skincare 
+            Derma Aesthetic is committed to deliver innovative advanced therapeutic skincare
             and Aesthetic medical solutions maintaining high quality, trust, and scientific care.
           </p>
           <div class="hero-actions">
@@ -39,151 +39,118 @@
             <a class="btn ghost" href="#contact">Talk to Us</a>
           </div>
         </div>
-        <div class="hero-card">
-          <h3>Our Mission</h3>
-          <ul>
-            <li>Clinically aligned product positioning</li>
-            <li>Patient-first quality standards</li>
-            <li>Reliable distribution partnerships</li>
-            <li>Serve dermatologists in Skincare and Aesthetic Dermatology</li>
-          </ul>
+        <div class="hero-products">
+          <div class="hero-product-composition reveal">
+            <img src="images/kemi.png" alt="Kemi Penta Moisturizing Lotion" class="hero-prod hero-prod--center" />
+            <img src="images/Shade.png" alt="DA Shade Sunscreen" class="hero-prod hero-prod--left" />
+            <img src="images/clenz.png" alt="DA Clenz Face Wash" class="hero-prod hero-prod--right" />
+          </div>
         </div>
-        <div class="hero-card">
-          <h3>Our Vision</h3>
-          <ul>
-            <li>Increase our leadership position in the growing field of Dermatology</li>
-          </ul>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="container trust-strip-inner">
+        <div class="trust-badge reveal">
+          <span class="trust-icon">M</span>
+          <div>
+            <strong>Manufactured by</strong>
+            <span>M/s Samarvir Biotech Pvt. Ltd.</span>
+          </div>
+        </div>
+        <div class="trust-badge reveal">
+          <span class="trust-icon">R</span>
+          <div>
+            <strong>R&amp;D Partner</strong>
+            <span>Innoscience Research Pvt. Ltd.</span>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section" id="about">
-      <div class="container narrow">
-        <p class="eyebrow">About Us</p>
-        <h2>Trusted dermatology marketing and sales partner</h2>
-        <p>
-          We focus on connecting effective dermatological cosmetics and general derma
-          medicines with doctors & pharmacies manufactured by M/s SAMARVIR BIOTECH Pvt. Ltd. Backed by R&D - Innoscience Research Pvt. Ltd. 
-           Our approach blends evidence-based product communication with a dependable supply network.
-        </p>
+      <div class="container about-grid reveal">
+        <div class="about-text">
+          <p class="eyebrow">About Us</p>
+          <h2>Trusted dermatology marketing and sales partner</h2>
+          <p>
+            We focus on connecting effective dermatological cosmetics and general derma medicines
+            with doctors &amp; pharmacies. Our approach blends evidence-based product communication
+            with a dependable supply network.
+          </p>
+        </div>
+        <div class="about-cards">
+          <article class="about-card">
+            <h3>Our Mission</h3>
+            <ul>
+              <li>Clinically aligned product positioning</li>
+              <li>Patient-first quality standards</li>
+              <li>Reliable distribution partnerships</li>
+              <li>Serve dermatologists in Skincare and Aesthetic Dermatology</li>
+            </ul>
+          </article>
+          <article class="about-card">
+            <h3>Our Vision</h3>
+            <ul>
+              <li>Increase our leadership position in the growing field of Dermatology</li>
+            </ul>
+          </article>
+        </div>
       </div>
     </section>
 
     <section class="section alt" id="products">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div>
             <p class="eyebrow">Our Portfolio</p>
             <h2>Our Own Products</h2>
           </div>
-          <p>Current flagship products from Derma Aesthetic. <a href="products.html">View full products page</a></p>
         </div>
 
-        <div class="product-showcase">
-          <div class="product-grid">
-          <article class="product-card expandable" id="da-shade" data-product-image="images/Shade.png">
-            <div class="product-badge">Product 01</div>
-            <h3>DA shade</h3>
-            <p>
-              Broad-spectrum sunscreen designed for daily UV protection with a
-              lightweight, non-sticky skin feel.
-            </p>
-            <div class="product-bottom">
+        <div class="visual-product-grid">
+          <a href="products.html#da-shade" class="visual-product-card reveal">
+            <div class="visual-product-img">
+              <img src="images/Shade.png" alt="DA Shade" loading="lazy" />
+            </div>
+            <div class="visual-product-info">
               <span class="tag">Sunscreen</span>
-              <button class="expand-btn" type="button" aria-expanded="false">
-                More Info <span class="chevron">+</span>
-              </button>
+              <h3>DA Shade Silicon Sunscreen Gel</h3>
+              <p>Lightweight silicone gel with primer-like finish. No white cast, matte, under-makeup ready.</p>
+              <span class="card-link">View details</span>
             </div>
-            <div class="product-details" aria-hidden="true">
-              <p>
-                DA shade supports everyday sun defense and is positioned for
-                broad patient use in routine skin-care recommendations.
-              </p>
-              <ul>
-                <li>Daily wear dermatology profile</li>
-                <li>Comfortable finish for repeated use</li>
-                <li>Suitable for regular skin-care routines</li>
-              </ul>
-            </div>
-          </article>
+          </a>
 
-          <article class="product-card expandable" id="kemi-penta" data-product-image="images/kemi.png">
-            <div class="product-badge">Product 02</div>
-            <h3>Kemi Penta Moisturizing Lotion</h3>
-            <p>
-              Advanced multi-level hydration lotion for dry and dehydrated skin —
-              lightweight, fast-absorbing, with a silky non-greasy finish.
-            </p>
-            <div class="product-bottom">
+          <a href="products.html#kemi-penta" class="visual-product-card reveal">
+            <div class="visual-product-img">
+              <img src="images/kemi.png" alt="Kemi Penta" loading="lazy" />
+            </div>
+            <div class="visual-product-info">
               <span class="tag">Moisturizer</span>
-              <button class="expand-btn" type="button" aria-expanded="false">
-                More Info <span class="chevron">+</span>
-              </button>
+              <h3>Kemi Penta Moisturizing Lotion</h3>
+              <p>Multi-level hydration with skin-identical moisturizers and amino acid complex.</p>
+              <span class="card-link">View details</span>
             </div>
-            <div class="product-details" aria-hidden="true">
-              <p>
-                An advanced hydration and skin-conditioning formula that delivers
-                immediate and prolonged moisture while strengthening the skin barrier.
-                Powered by humectants, emollients, skin-identical moisturizers,
-                amino acids, and skin-repair actives for soft, smooth,
-                healthy-looking skin.
-              </p>
-              <h4>Key benefits</h4>
-              <ul>
-                <li>Multi-level hydration with moisture-lock technology</li>
-                <li>Strengthens and supports skin barrier function</li>
-                <li>Deep moisture retention for soft, supple skin</li>
-                <li>Lightweight, non-greasy, fast-absorbing daily use</li>
-                <li>Helps reduce dryness, roughness, and improves elasticity</li>
-                <li>Amino acid–enriched care for dehydrated and dry skin</li>
-              </ul>
-              <h4>Hero ingredients</h4>
-              <ul>
-                <li><strong>Saccharide Isomerate</strong> — binds moisture for prolonged hydration</li>
-                <li><strong>Urea + Sodium PCA + Sorbitol + Sugars</strong> — mimic natural skin moisturizers</li>
-                <li><strong>Sodium Hyaluronate</strong> — intense hydration and plumping</li>
-                <li><strong>D-Panthenol</strong> — soothes and supports skin repair</li>
-                <li><strong>Amino Acid Complex</strong> (Glycine, Lysine, Sodium Glutamate) — supports healthy skin function</li>
-              </ul>
-            </div>
-          </article>
+          </a>
 
-          <article class="product-card expandable" id="da-clenz" data-product-image="images/clenz.png">
-            <div class="product-badge">Product 03</div>
-            <h3>Da Clenz</h3>
-            <p>
-              Gentle face wash crafted for effective cleansing while maintaining
-              skin comfort in regular daily use.
-            </p>
-            <div class="product-bottom">
+          <a href="products.html#da-clenz" class="visual-product-card reveal">
+            <div class="visual-product-img">
+              <img src="images/clenz.png" alt="DA Clenz" loading="lazy" />
+            </div>
+            <div class="visual-product-info">
               <span class="tag">Face Wash</span>
-              <button class="expand-btn" type="button" aria-expanded="false">
-                More Info <span class="chevron">+</span>
-              </button>
+              <h3>DA Clenz Creme Cleanser</h3>
+              <p>Deep cleansing with brightening actives and skin barrier protection.</p>
+              <span class="card-link">View details</span>
             </div>
-            <div class="product-details" aria-hidden="true">
-              <p>
-                Da Clenz is positioned as an everyday cleanser for fresh, clean
-                skin without over-drying the face.
-              </p>
-              <ul>
-                <li>Balanced cleansing support</li>
-                <li>Dermatology-conscious positioning</li>
-                <li>Simple twice-daily usage profile</li>
-              </ul>
-            </div>
-          </article>
-          </div>
-          <aside class="product-image-float" aria-hidden="true">
-            <img src="" alt="" />
-          </aside>
+          </a>
         </div>
       </div>
     </section>
 
     <section class="section partner-section" id="partner">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div>
             <p class="eyebrow">Strategic Collaboration</p>
             <h2>Partner Distribution</h2>
@@ -191,7 +158,7 @@
           <p>We also distribute products through a trusted partner company.</p>
         </div>
 
-        <div class="partner-card">
+        <div class="partner-card reveal">
           <h3>Distribution Partner: <span>Prudens</span></h3>
           <p>
             Through this partnership, Derma Aesthetic expands product reach and
@@ -205,7 +172,7 @@
           </ul>
         </div>
 
-        <div class="section-head partner-products-head">
+        <div class="section-head partner-products-head reveal">
           <div>
             <p class="eyebrow">Prudens Gallery</p>
             <h2>Distributed Partner Products</h2>
@@ -215,8 +182,8 @@
 
         <div class="product-showcase product-showcase--partner">
           <div class="product-grid partner-grid">
-          <article class="product-card expandable" id="prugen-prp" data-product-image="images/prugen-prp.png">
-            <div class="product-badge">Prudens 01</div>
+          <article class="product-card expandable reveal" id="prugen-prp" data-product-image="images/prugen-prp.png">
+            
             <h3>Pru gen PRP</h3>
             <p>
               PRP-focused solution distributed through Derma Aesthetic for
@@ -241,8 +208,8 @@
             </div>
           </article>
 
-          <article class="product-card expandable" id="gfc" data-product-image="images/gfc.png">
-            <div class="product-badge">Prudens 02</div>
+          <article class="product-card expandable reveal" id="gfc" data-product-image="images/gfc.png">
+          
             <h3>GFC</h3>
             <p>
               Growth-factor centered product line supplied through our partner
@@ -267,8 +234,8 @@
             </div>
           </article>
 
-          <article class="product-card expandable" id="pelopenta" data-product-image="images/pelopenta.png">
-            <div class="product-badge">Prudens 03</div>
+          <article class="product-card expandable reveal" id="pelopenta" data-product-image="images/pelopenta.png">
+           
             <h3>pelopenta</h3>
             <p>
               Distributed skincare product from Prudens, positioned for broader
@@ -301,7 +268,7 @@
     </section>
 
     <section class="section alt" id="contact">
-      <div class="container contact-grid">
+      <div class="container contact-grid reveal">
         <div>
           <p class="eyebrow">Get In Touch</p>
           <h2>Let us help you with product and distribution needs</h2>
@@ -313,8 +280,8 @@
         <div class="contact-card">
           <p><strong>Company:</strong> Derma Aesthetic</p>
           <p><strong>Email:</strong> info@dermaaesthetic.com</p>
-          <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
-          <p><strong>Location:</strong> [City, State, Country]</p>
+          <p><strong>Phone:</strong> +91-9995430677</p>
+          <p><strong>Location:</strong> [Kochi, Kerala, India]</p>
         </div>
       </div>
     </section>
