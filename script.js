@@ -50,6 +50,20 @@ if (heroComposition) {
   const positions = ["hero-prod--center", "hero-prod--left", "hero-prod--right"];
   let current = 0;
 
+  heroComposition.addEventListener("click", (event) => {
+    const clickedImage = event.target.closest(".hero-prod");
+
+    if (!clickedImage || !clickedImage.classList.contains("hero-prod--center")) {
+      return;
+    }
+
+    const productLink = clickedImage.dataset.productLink;
+
+    if (productLink) {
+      window.location.href = productLink;
+    }
+  });
+
   setInterval(() => {
     current = (current + 1) % prods.length;
     prods.forEach((img, i) => {
