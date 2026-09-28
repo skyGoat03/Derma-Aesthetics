@@ -46,31 +46,63 @@ if (revealElements.length > 0) {
 /* Hero product carousel — rotates positions every 3s */
 const heroComposition = document.querySelector(".hero-product-composition");
 if (heroComposition) {
-  const prods = heroComposition.querySelectorAll(".hero-prod");
-  const positions = ["hero-prod--center", "hero-prod--left", "hero-prod--right"];
-  let current = 0;
+  const products = [...heroComposition.querySelectorAll(".hero-prod")];
+  const positionClasses = [
+    "hero-prod--center",
+    "hero-prod--left",
+    "hero-prod--right",
+    "hero-prod--back",
+  ];
 
-  heroComposition.addEventListener("click", (event) => {
-    const clickedImage = event.target.closest(".hero-prod");
+  if (products.length > 0) {
+    const initialCenter = products.findIndex((product) =>
+      product.classList.contains("hero-prod--center")
+    );
+    let current = initialCenter >= 0 ? initialCenter : 0;
 
-    if (!clickedImage || !clickedImage.classList.contains("hero-prod--center")) {
-      return;
+    function renderCarousel() {
+      products.forEach((product, index) => {
+        const relativePosition = (index - current + products.length) % products.length;
+        let position;
+
+        if (relativePosition === 0) {
+          position = "hero-prod--center";
+        } else if (relativePosition === 1) {
+          position = "hero-prod--left";
+        } else if (relativePosition === products.length - 1) {
+          position = "hero-prod--right";
+        } else {
+          position = "hero-prod--back";
+        }
+
+        product.classList.remove(...positionClasses);
+        product.classList.add(position);
+      });
     }
 
-    const productLink = clickedImage.dataset.productLink;
+    heroComposition.addEventListener("click", (event) => {
+      const clickedImage = event.target.closest(".hero-prod");
 
-    if (productLink) {
-      window.location.href = productLink;
-    }
-  });
+      if (!clickedImage?.classList.contains("hero-prod--center")) {
+        return;
+      }
 
-  setInterval(() => {
-    current = (current + 1) % prods.length;
-    prods.forEach((img, i) => {
-      img.classList.remove(positions[0], positions[1], positions[2]);
-      img.classList.add(positions[(i - current + prods.length) % prods.length]);
+      const productLink = clickedImage.dataset.productLink;
+
+      if (productLink) {
+        window.location.href = productLink;
+      }
     });
-  }, 3000);
+
+    renderCarousel();
+
+    if (products.length > 1) {
+      setInterval(() => {
+        current = (current + 1) % products.length;
+        renderCarousel();
+      }, 3000);
+    }
+  }
 }
 
 function clearProductImage(showcase) {
