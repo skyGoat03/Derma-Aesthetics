@@ -115,46 +115,30 @@ function clearProductImage(card) {
   const image = media.querySelector("img");
   image.onload = null;
   image.onerror = null;
-  image.removeAttribute("src");
-  image.alt = "";
-  media.classList.remove("has-image");
+  media.remove();
 }
 
 function showProductImage(card) {
   const details = card.querySelector(".product-details");
   const title = card.querySelector("h3")?.textContent.trim() || "Product";
-  let media = details.querySelector(".product-detail-media");
-
-  if (!media) {
-    media = document.createElement("figure");
-    media.className = "product-detail-media";
-
-    const image = document.createElement("img");
-    image.alt = "";
-
-    const placeholder = document.createElement("figcaption");
-    placeholder.className = "product-detail-placeholder";
-
-    media.append(image, placeholder);
-    details.prepend(media);
-  }
-
-  const image = media.querySelector("img");
-  const placeholder = media.querySelector("figcaption");
   const imageSrc = card.dataset.productImage;
-
-  placeholder.textContent = `${title} photo coming soon`;
-  media.classList.remove("has-image");
 
   if (!imageSrc) {
     return;
   }
 
+  const image = new Image();
   image.alt = `${title} product photo`;
-  image.onload = () => media.classList.add("has-image");
-  image.onerror = () => {
-    image.removeAttribute("src");
-    media.classList.remove("has-image");
+  image.onload = () => {
+    if (!card.classList.contains("is-open")) {
+      return;
+    }
+
+    const media = document.createElement("figure");
+    media.className = "product-detail-media";
+    media.append(image);
+    details.prepend(media);
+    details.style.maxHeight = `${details.scrollHeight}px`;
   };
   image.src = imageSrc;
 }
