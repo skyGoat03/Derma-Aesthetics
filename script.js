@@ -105,84 +105,58 @@ if (heroComposition) {
   }
 }
 
-function clearProductImage(showcase) {
-  if (!showcase) {
+function clearProductImage(card) {
+  const media = card.querySelector(".product-detail-media");
+
+  if (!media) {
     return;
   }
 
-  const imageFloat = showcase.querySelector(".product-image-float");
-  const imageEl = imageFloat?.querySelector("img:not(.extra-img)");
-  const extraImg = imageFloat?.querySelector(".extra-img");
-
-  showcase.classList.remove("has-image");
-
-  if (!imageFloat) {
-    return;
-  }
-
-  imageFloat.classList.remove("is-visible");
-  imageFloat.setAttribute("aria-hidden", "true");
-
-  if (imageEl) {
-    imageEl.onload = null;
-    imageEl.onerror = null;
-    imageEl.removeAttribute("src");
-    imageEl.alt = "";
-  }
-
-  if (extraImg) {
-    extraImg.onload = null;
-    extraImg.onerror = null;
-    extraImg.removeAttribute("src");
-    extraImg.alt = "";
-    extraImg.style.display = "none";
-  }
+  const image = media.querySelector("img");
+  image.onload = null;
+  image.onerror = null;
+  image.removeAttribute("src");
+  image.alt = "";
+  media.classList.remove("has-image");
 }
 
-function hideProductShowcase(showcase) {
-  if (!showcase) {
-    return;
-  }
-
-  showcase.classList.remove("has-active");
-  clearProductImage(showcase);
-}
-
-function showProductImage(card, showcase) {
-  if (!showcase) {
-    return;
-  }
-
-  const imageFloat = showcase.querySelector(".product-image-float");
-  const imageEl = imageFloat?.querySelector("img:not(.extra-img)");
-  const extraImg = imageFloat?.querySelector(".extra-img");
-  const imageSrc = card.dataset.productImage;
-  const extraSrc = card.dataset.productImageExtra;
-
-  clearProductImage(showcase);
-
-  if (!imageSrc || !imageFloat || !imageEl) {
-    return;
-  }
-
+function showProductImage(card) {
+  const details = card.querySelector(".product-details");
   const title = card.querySelector("h3")?.textContent.trim() || "Product";
+  let media = details.querySelector(".product-detail-media");
 
-  if (extraSrc && extraImg) {
-    extraImg.alt = title + " ingredients";
-    extraImg.style.display = "block";
-    extraImg.src = extraSrc;
+  if (!media) {
+    media = document.createElement("figure");
+    media.className = "product-detail-media";
+
+    const image = document.createElement("img");
+    image.alt = "";
+
+    const placeholder = document.createElement("figcaption");
+    placeholder.className = "product-detail-placeholder";
+
+    media.append(image, placeholder);
+    details.prepend(media);
   }
 
-  imageEl.alt = title;
-  imageEl.onload = () => {
-    showcase.classList.add("has-image");
-    imageFloat.classList.add("is-visible");
-    imageFloat.setAttribute("aria-hidden", "false");
+  const image = media.querySelector("img");
+  const placeholder = media.querySelector("figcaption");
+  const imageSrc = card.dataset.productImage;
+
+  placeholder.textContent = `${title} photo coming soon`;
+  media.classList.remove("has-image");
+
+  if (!imageSrc) {
+    return;
+  }
+
+  image.alt = `${title} product photo`;
+  image.onload = () => media.classList.add("has-image");
+  image.onerror = () => {
+    image.removeAttribute("src");
+    media.classList.remove("has-image");
   };
-  imageEl.onerror = () => {
-    clearProductImage(showcase);
-  };
-  imageEl.src = imageSrc;
+  image.src = imageSrc;
 }
 
 function collapseCard(card) {
@@ -197,10 +171,11 @@ function collapseCard(card) {
   button.setAttribute("aria-expanded", "false");
   details.setAttribute("aria-hidden", "true");
   button.childNodes[0].textContent = "More Info ";
+  clearProductImage(card);
   details.style.maxHeight = "0px";
 }
 
-function openCard(card, grid, showcase) {
+function openCard(card, grid) {
   const button = card.querySelector(".expand-btn");
   const details = card.querySelector(".product-details");
 
@@ -212,17 +187,12 @@ function openCard(card, grid, showcase) {
   button.setAttribute("aria-expanded", "true");
   details.setAttribute("aria-hidden", "false");
   button.childNodes[0].textContent = "Less Info ";
-  details.style.maxHeight = `${details.scrollHeight}px`;
   grid.classList.add("has-active");
-
-  if (showcase) {
-    showcase.classList.add("has-active");
-    showProductImage(card, showcase);
-  }
+  showProductImage(card);
+  details.style.maxHeight = `${details.scrollHeight}px`;
 }
 
 function setupExpandableGrid(grid) {
-  const showcase = grid.closest(".product-showcase");
   const expandableCards = grid.querySelectorAll(".product-card.expandable");
 
   expandableCards.forEach((card) => {
@@ -243,11 +213,10 @@ function setupExpandableGrid(grid) {
       });
 
       if (isOpen) {
-        openCard(card, grid, showcase);
+        openCard(card, grid);
       } else {
         collapseCard(card);
         grid.classList.remove("has-active");
-        hideProductShowcase(showcase);
       }
     });
   });
@@ -284,8 +253,6 @@ function openProductFromHash() {
   }
 
   const { grid, cards } = gridEntry;
-  const showcase = grid.closest(".product-showcase");
-
   cards.forEach((card) => {
     if (card !== targetCard) {
       collapseCard(card);
@@ -298,7 +265,7 @@ function openProductFromHash() {
     }
   });
 
-  openCard(targetCard, grid, showcase);
+  openCard(targetCard, grid);
   targetCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
